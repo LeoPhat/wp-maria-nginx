@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: timoweb
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      cluster: dev
+      url: https://3A8E48E723BA33BFC0D3C6CA49CBD0BD.gr7.ap-southeast-1.eks.amazonaws.com
+      name: dev-timoweb
+  template:
+    metadata:
+      name: {{name}}
+    spec:
+      project: '{{cluster}}-cluster-1'
+      destination:
+        namespace: timoweb
+        server: '{{url}}'
+      sources:
+      - chart: redis
+        repoURL: "https://github.com/LeoPhat/wp"
+        targetRevision: 18.1.3
+
+      
