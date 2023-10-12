@@ -19,7 +19,12 @@ spec:
         server: '{{url}}'
       sources:
       - chart: redis
-        repoURL: "https://github.com/LeoPhat/wp"
+        repoURL: "https://github.com/LeoPhat/wp-maria-nginx/redis/"
         targetRevision: 18.1.3
+      - chart: wordpress
+        repoURL: "https://github.com/LeoPhat/wp-maria-nginx/"
+        targetRevision:
+      - chart: mariadb-operator
+        repoURL:
 
       
