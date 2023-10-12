@@ -130,19 +130,7 @@ spec:
               value: {{ ternary "true" "false" (or .Values.image.debug .Values.diagnosticMode.enabled) | quote }}
             - name: ALLOW_EMPTY_PASSWORD
               value: {{ ternary "yes" "no" .Values.allowEmptyPassword | quote }}
-            - name: MARIADB_HOST
-              value: {{ include "wordpress.databaseHost" . | quote }}
-            - name: MARIADB_PORT_NUMBER
-              value: {{ include "wordpress.databasePort" . | quote }}
-            - name: WORDPRESS_DATABASE_NAME
-              value: {{ include "wordpress.databaseName" . | quote }}
-            - name: WORDPRESS_DATABASE_USER
-              value: {{ include "wordpress.databaseUser" . | quote }}
-            - name: WORDPRESS_DATABASE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "wordpress.databaseSecretName" . }}
-                  key: mariadb-password
+            
             - name: WORDPRESS_USERNAME
               value: {{ .Values.wordpressUsername | quote }}
             - name: WORDPRESS_PASSWORD

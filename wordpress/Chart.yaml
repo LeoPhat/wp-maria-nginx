@@ -20,7 +20,7 @@ dependencies:
   tags:
   - bitnami-common
 - name: nginx-php
-  repository: charts/nginx-php
+  repository: charts/nginx-php/
   version: 0.1.0
 description: WordPress is the world's most popular blogging and content management
   platform. Powerful yet simple, everyone from students to global corporations use
