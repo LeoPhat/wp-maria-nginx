@@ -15,15 +15,13 @@ dependencies:
   name: memcached
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 6.x.x
-- condition: mariadb-operator.enabled ## config goc mariadb.enabled
-  name: mariadb-operator ## ten goc mariadb
-  repository: https://mariadb-operator.github.io/mariadb-operator ## chart gốc mariadb : oci://registry-1.docker.io/bitnamicharts
-  version: 0.21.1 ## version cua chart mariadb goc 13.x.x
 - name: common
   repository: oci://registry-1.docker.io/bitnamicharts
   tags:
   - bitnami-common
-  version: 2.x.x
+- name: nginx-php
+  repository: charts/nginx-php
+  version: 0.1.0
 description: WordPress is the world's most popular blogging and content management
   platform. Powerful yet simple, everyone from students to global corporations use
   it to build beautiful, functional websites.
