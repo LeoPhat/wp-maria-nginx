@@ -1,10 +1,33 @@
-apiVersion: mariadb.com/v1
+apiVersion: mariadb.mmontes.io/v1alpha1
 kind: MariaDB
 metadata:
   name: mariadb
 spec:
-  size: 1
-  rootPassword: Aa@123456
-  user: admin
-  password: admin
-  database: wordpress
+  rootPasswordSecretKeyRef:
+    name: mariadb
+    key: root-password
+  image:
+    repository: mariadb
+    tag: "10.11.3"
+    pullPolicy: IfNotPresent
+  port: 3306
+  volumeClaimTemplate:
+    resources:
+      requests:
+        storage: 100Mi
+    accessModes:
+      - ReadWriteOnce
+  myCnf: |
+    [mariadb]
+    bind-address=0.0.0.0
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    max_allowed_packet=256M
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
