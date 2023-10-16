@@ -36,7 +36,7 @@ spec:
       containers:
          # Our PHP-FPM application
         - name: app-{{ .Chart.Name }}
-          image: my-php-app
+          image: phatdinh/my-php-app
           volumeMounts:
             - name: shared-files
               mountPath: /var/www/html
