@@ -1,0 +1,10 @@
+apiVersion: mariadb.com/v1
+kind: MariaDB
+metadata:
+  name: mariadb
+spec:
+  size: 1
+  rootPassword: Aa@123456
+  user: admin
+  password: admin
+  database: wordpress
