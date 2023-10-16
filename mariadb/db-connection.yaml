@@ -8,7 +8,7 @@ spec:
   username: wordpress
   passwordSecretKeyRef:
     name: wordpress
-    key: password
+    key: wordpress-password
   database: db-wordpress
   secretName: connection
   secretTemplate:
