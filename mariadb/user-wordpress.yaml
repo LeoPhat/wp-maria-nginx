@@ -6,6 +6,6 @@ spec:
   mariaDbRef:
     name: mariadb
   passwordSecretKeyRef:
-    name: wordpress-password
-    key: password
+    name: wordpress
+    key: wordpress-password
   maxUserConnections: 20
