@@ -18,12 +18,12 @@ spec:
         namespace: timoweb
         server: '{{url}}'
       sources:
-      - chart: wordpress
-        repoURL: "https://github.com/LeoPhat/wp-maria-nginx/wordpress/"
-        targetRevision: 6.3.2
-      - chart: mariadb-operator
-        repoURL: "https://mariadb-operator.github.io/mariadb-operator"
-        targetRevision: 0.21.0
+        - chart: wordpress
+          repoURL: "https://github.com/LeoPhat/wp-maria-nginx/wordpress/"
+          targetRevision: 6.3.2
+        - chart: mariadb-operator
+          repoURL: "https://mariadb-operator.github.io/mariadb-operator"
+          targetRevision: 0.21.0
       syncPolicy:
         syncOptions:
         - CreateNamespace=true
