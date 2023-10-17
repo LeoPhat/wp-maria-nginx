@@ -5,10 +5,10 @@ metadata:
 spec:
   mariaDbRef:
     name: mariadb
-  username: wordpress
+  username: user
   passwordSecretKeyRef:
-    name: wordpress
-    key: wordpress-password
+    name: user
+    key: password
   database: db-wordpress
   secretName: connection
   secretTemplate:

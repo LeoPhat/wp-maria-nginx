@@ -12,5 +12,5 @@ spec:
     - "UPDATE"
   database: "*"
   table: "*"
-  username: wordpress
-  grantOption: false
+  username: user
+  grantOption: true
