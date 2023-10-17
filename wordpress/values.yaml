@@ -76,7 +76,7 @@ diagnosticMode:
 image:
   registry: docker.io
   repository: bitnami/wordpress
-  tag: 6.3.1-debian-11-r32
+  tag: 6.3.2-debian-11-r0
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -102,11 +102,11 @@ image:
 
 ## @param wordpressUsername WordPress username
 ##
-wordpressUsername: admin
+wordpressUsername: user
 ## @param wordpressPassword WordPress user password
 ## Defaults to a random 10-character alphanumeric string if not set
 ##
-wordpressPassword: "admin"
+wordpressPassword: ""
 ## @param existingSecret Name of existing secret containing WordPress credentials
 ## NOTE: Must contain key `wordpress-password`
 ## NOTE: When it's set, the `wordpressPassword` parameter is ignored
@@ -437,7 +437,7 @@ containerSecurityContext:
 ## @param livenessProbe.successThreshold Success threshold for livenessProbe
 ##
 livenessProbe:
-  enabled: true
+  enabled: false #true
   httpGet:
     path: /wp-admin/install.php
     port: '{{ .Values.wordpressScheme }}'
@@ -466,7 +466,7 @@ livenessProbe:
 ## @param readinessProbe.successThreshold Success threshold for readinessProbe
 ##
 readinessProbe:
-  enabled: true
+  enabled: false #true
   httpGet:
     path: /wp-login.php
     port: '{{ .Values.wordpressScheme }}'
@@ -766,7 +766,7 @@ volumePermissions:
   image:
     registry: docker.io
     repository: bitnami/os-shell
-    tag: 11-debian-11-r86
+    tag: 11-debian-11-r90
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -860,7 +860,7 @@ metrics:
   image:
     registry: docker.io
     repository: bitnami/apache-exporter
-    tag: 1.0.2-debian-11-r8
+    tag: 1.0.2-debian-11-r10
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -1086,9 +1086,57 @@ networkPolicy:
     ##
     customRules: {}
 
-## @param externalDatabase.host External Database server host
+## @section Database Parameters
+##
+
+## MariaDB chart configuration
+## ref: https://github.com/bitnami/charts/blob/main/bitnami/mariadb/values.yaml
+##
+mariadb:
+  ## @param mariadb.enabled Deploy a MariaDB server to satisfy the applications database requirements
+  ## To use an external database set this to false and configure the `externalDatabase.*` parameters
   ##
-  host: localhost
+  enabled: false
+  ## @param mariadb.architecture MariaDB architecture. Allowed values: `standalone` or `replication`
+  ##
+  architecture: standalone
+  ## MariaDB Authentication parameters
+  ## @param mariadb.auth.rootPassword MariaDB root password
+  ## @param mariadb.auth.database MariaDB custom database
+  ## @param mariadb.auth.username MariaDB custom user name
+  ## @param mariadb.auth.password MariaDB custom user password
+  ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mariadb#setting-the-root-password-on-first-run
+  ##      https://github.com/bitnami/containers/blob/main/bitnami/mariadb/README.md#creating-a-database-on-first-run
+  ##      https://github.com/bitnami/containers/blob/main/bitnami/mariadb/README.md#creating-a-database-user-on-first-run
+  ##
+  auth:
+    rootPassword: ""
+    database: bitnami_wordpress
+    username: bn_wordpress
+    password: ""
+  ## MariaDB Primary configuration
+  ##
+  primary:
+    ## MariaDB Primary Persistence parameters
+    ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
+    ## @param mariadb.primary.persistence.enabled Enable persistence on MariaDB using PVC(s)
+    ## @param mariadb.primary.persistence.storageClass Persistent Volume storage class
+    ## @param mariadb.primary.persistence.accessModes [array] Persistent Volume access modes
+    ## @param mariadb.primary.persistence.size Persistent Volume size
+    ##
+    persistence:
+      enabled: true
+      storageClass: ""
+      accessModes:
+        - ReadWriteOnce
+      size: 8Gi
+## External Database Configuration
+## All of these values are only used if `mariadb.enabled=false`
+##
+externalDatabase:
+  ## @param externalDatabase.host External Database server host
+  ##
+  host: mariadb-0
   ## @param externalDatabase.port External Database server port
   ##
   port: 3306
@@ -1100,7 +1148,7 @@ networkPolicy:
   password: ""
   ## @param externalDatabase.database External Database database name
   ##
-  database: bitnami_wordpress
+  database: db_wordpress
   ## @param externalDatabase.existingSecret The name of an existing secret with database credentials. Evaluated as a template
   ## NOTE: Must contain key `mariadb-password`
   ## NOTE: When it's set, the `externalDatabase.password` parameter is ignored
@@ -1112,7 +1160,7 @@ networkPolicy:
 memcached:
   ## @param memcached.enabled Deploy a Memcached server for caching database queries
   ##
-  enabled: true
+  enabled: false
   ## Authentication parameters
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/memcached#creating-the-memcached-admin-user
   ##
