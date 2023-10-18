@@ -1,15 +1,15 @@
-apiVersion: mariadb.mmontes.io/v1alpha1
-kind: Connection
-metadata:
-  name: connection
-spec:
-  mariaDbRef:
-    name: mariadb
-  username: user
-  passwordSecretKeyRef:
-    name: user
-    key: password
-  database: db-wordpress
-  secretName: connection
-  secretTemplate:
-    key: dsn
+# apiVersion: mariadb.mmontes.io/v1alpha1
+# kind: Connection
+# metadata:
+#   name: connection
+# spec:
+#   mariaDbRef:
+#     name: mariadb
+#   username: user
+#   passwordSecretKeyRef:
+#     name: user
+#     key: password
+#   database: db-wordpress
+#   secretName: connection
+#   secretTemplate:
+#     key: dsn

@@ -147,6 +147,16 @@ wordpressExtraConfigContent: ""
 ## NOTE: Currently only supported when `wordpressSkipInstall=true`
 ##
 wordpressConfiguration: ""
+  # env:
+  #   - name: WORDPRESS_DB_HOST
+  #     value: mariadb-0
+  #   - name: WORDPRESS_USERNAME
+  #     value: user
+  #   - name: WORDPRESS_PASSWORD
+  #     value: QWFAMTIzNDU2
+  #   - name: WORDPRESS_DB_NAME
+  #     value: db-wordpress
+
 ## @param existingWordPressConfigurationSecret The name of an existing secret with your custom wp-config.php file (advanced feature)
 ## NOTE: When it's set the `wordpressConfiguration` parameter is ignored
 ##
@@ -1142,13 +1152,13 @@ externalDatabase:
   port: 3306
   ## @param externalDatabase.user External Database username
   ##
-  user: wordpress
+  user: user #wordpress
   ## @param externalDatabase.password External Database user password
   ##
-  password: ""
+  password: "QWFAMTIzNDU2"
   ## @param externalDatabase.database External Database database name
   ##
-  database: db_wordpress
+  database: db-wordpress
   ## @param externalDatabase.existingSecret The name of an existing secret with database credentials. Evaluated as a template
   ## NOTE: Must contain key `mariadb-password`
   ## NOTE: When it's set, the `externalDatabase.password` parameter is ignored
@@ -1160,7 +1170,7 @@ externalDatabase:
 memcached:
   ## @param memcached.enabled Deploy a Memcached server for caching database queries
   ##
-  enabled: false
+  enabled: true
   ## Authentication parameters
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/memcached#creating-the-memcached-admin-user
   ##
